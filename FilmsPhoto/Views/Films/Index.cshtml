@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FilmsPhoto.Models.Film>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (Request.IsAuthenticated && User.IsInRole("admin"))
+{
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+}
+
+<div style="">
+    @using (Ajax.BeginForm("Search", "Films", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <input type="text" name="Country" placeholder="Введите страну" />
+        <input type="submit" value="Поиск" />
+    }
+</div>
+<div id="results">
+    <div class="row">
+
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-12" style="padding-bottom:15px;">
+                <div class="w100" style="margin-left:50%;padding-bottom:5%;"><h1>@item.Title</h1></div>
+                <div style="float:left; padding-right:20px;">
+                    @if (item.Cover != null)
+                    {
+                        <img width="150px" height="200px" src="@Url.Action("GetImage","Films",new { item.Id })" class="img-rounded" />
+                    }
+                </div>
+                <div style="padding-left:10px;font-size:18px;">
+                    <b>Описание:</b><br />
+                    @item.Description<br />
+                    <b>Год выхода:</b><br />
+                    @item.Year<br />
+                    <b>Страна:</b><br />
+                    @item.Country<br />
+                    <b>Актеры:</b><br />
+                    @item.FilmActors.ToList();<br />
+
+
+                </div>
+
+                <a href="~/Films/Details/@item.Id">Details</a>
+            </div>
+        }
+
+
+
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model FilmsPhoto.Models.Actor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Актеры</h2>
+
+<h3>@Html.DisplayNameFor( model => model.FirstName)</h3>
+<hr />
+<div>
+    @if (Model.Photo != null)
+    {
+        <img width="150px" height="200px" src="@Url.Action("GetImage","Actors",new { Model.Id })" class="img-rounded" />
+    }
+</div>
+<div><b>Фильмография:
+    
+    </b></div>
+<div><p>@Html.ActionLink("Список Фильмов","Index","Films")</p></div>
+
+
+
+<p>
+    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    }
+
+    @Html.ActionLink("Back to List", "Index","Films")
+</p>

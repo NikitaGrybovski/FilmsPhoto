@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FilmsPhoto.Models.Film>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Films</h1>
+
+</div>
+
+<div class="row">
+    
+    
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div>
+                @if (item.Cover != null)
+                {
+                    <img width="150px" height="200px" src="@Url.Action("GetImage","Films",new { item.Id })" class="img-rounded" />
+                }
+             </div>
+            <h2>@item.Title</h2>
+            <a href="~/Films/Details/@item.Id">Details</a>
+        </div>
+    }
+
+    
+
+</div>
