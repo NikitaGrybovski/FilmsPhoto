@@ -17,14 +17,21 @@
 <div><b>Фильмография:
     
     </b></div>
-<div><p>@Html.ActionLink("Список Фильмов","Index","Films")</p></div>
+<div><p>
+    Список фильмов: <br />
+    @foreach (var films in Model.FilmActors)
+        {
+            @Html.ActionLink(films.Film.Title, "Index", "Films");<br />
+            
+        }
+</p></div>
 
 
 
 <p>
     @if (Request.IsAuthenticated && User.IsInRole("admin"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
     }
 
     @Html.ActionLink("Back to List", "Index","Films")

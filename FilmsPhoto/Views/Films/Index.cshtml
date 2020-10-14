@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<FilmsPhoto.Models.Film>
 
+
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,9 +9,9 @@
 <h2>Index</h2>
 @if (Request.IsAuthenticated && User.IsInRole("admin"))
 {
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
 
 <div style="">
@@ -41,15 +43,20 @@
                     <b>Страна:</b><br />
                     @item.Country<br />
                     <b>Актеры:</b><br />
-                    @item.FilmActors.ToList();<br />
+                    @foreach (var actors in item.FilmActors)
+                    {
+                        <a href="~/Actors/Details/@actors.Actor.Id ">@actors.Actor.FirstName</a>
+                       
+                    }
+
 
 
                 </div>
 
-                <a href="~/Films/Details/@item.Id">Details</a>
+                
             </div>
         }
-
+        
 
 
     </div>

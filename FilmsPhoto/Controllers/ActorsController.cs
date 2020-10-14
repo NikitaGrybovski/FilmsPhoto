@@ -17,6 +17,7 @@ namespace FilmsPhoto.Controllers
         // GET: Actors
         public ActionResult Index()
         {
+            
             return View(db.Actors.ToList());
         }
 
@@ -28,6 +29,7 @@ namespace FilmsPhoto.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Actor actor = db.Actors.Find(id);
+            var viewFilms = db.Actors.Include(t => t.FilmActors).FirstOrDefault(i => i.Id == id);
             if (actor == null)
             {
                 return HttpNotFound();

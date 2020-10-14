@@ -17,11 +17,12 @@ namespace FilmsPhoto.Controllers
         // GET: Films
         public ActionResult Index()
         {
-            
-            return View(db.Films.ToList());
+            var viewActors = db.Films.Include(t => t.FilmActors).ToList();   // db.FilmActors.Include(p => p.Actor).ToList();
+            // return View(db.Films.Include(p => p.A).ToList());
+            return View(viewActors);
         }
 
-       
+        
 
         // GET: Films/Details/5
         public ActionResult Details(int? id)
@@ -38,6 +39,16 @@ namespace FilmsPhoto.Controllers
             return View(film);
         }
 
+       /*  [ChildActionOnly]
+
+       public ActionResult FilmActors()
+        {
+            
+            return PartialView(viewActors);
+        }*/
+
+
+        
         // GET: Films/Create
         [Authorize(Roles = "admin")]
         public ActionResult Create()
